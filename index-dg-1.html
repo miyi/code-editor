@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kanban</title>
+
+    <style>
+        [dg-cloak] {
+            display: none !important;
+        }
+    </style>
+<link rel="stylesheet" href="css/style.css">
+
+    <script type="module" crossorigin="anonymous" src="js/dagger.js" defer></script>
+    <script type="dagger/modules">
+        {
+            javascript: "./func-dg.js"
+        }
+    </script>
+</head>
+<body>
+
+<div class="kanban-board">
+    <div class="kanban-column" +drop="drop(event)" +dragover="allowDrop(event)" >
+        <h2>To Do</h2>
+
+        <div class="kanban-task" draggable="true" +dragstart="drag(event)" id="task1">Task 1
+            <span style="color: red; cursor: pointer; float: right"> X</span>
+        </div>
+        <div class="kanban-task" draggable="true" +dragstart="drag(event)" id="task2">Task 2
+            <span style="color: red; cursor: pointer; float: right" +click="deleteTask()"> X</span>
+        </div>
+    </div>
+    <div class="kanban-column" +drop="drop(event)" +dragover="allowDrop(event)">
+        <h2>In Progress</h2>
+        <!-- Tasks will be added here dynamically -->
+    </div>
+    <div class="kanban-column" +drop="drop(event)" +dragover="allowDrop(event)">
+        <h2>Done</h2>
+        <!-- Tasks will be added here dynamically -->
+    </div>
+</div>
+
+<div class="task-creator">
+    <input $type="text" id="newTaskName" placeholder="Enter a new to-do task">
+    <button +click="addNewTask()">Add Task</button>
+</div>
+
+</body>
+</html>

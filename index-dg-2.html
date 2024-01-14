@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kanban</title>
+
+  <style>
+    [dg-cloak] {
+      display: none !important;
+    }
+  </style>
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="module" crossorigin="anonymous" src="js/dagger.js" defer></script>
+  <script type="dagger/modules">
+    {
+        javascript: "./func-dg.js"
+    }
+  </script>
+</head>
+<body>
+<script type="text/javascript">
+  example = {
+    todoList: [
+      {
+        "id": 1,
+        "name": "Task 1",
+        "Description": "S.L.",
+        "Assignee": "",
+        "Story Points": 1
+      }
+    ],
+    ipList: [
+      {
+        "id": 2,
+        "name": "Task 2",
+        "Description": "",
+        "Assignee": "Y.L.",
+        "Story Points": 2
+      }
+    ],
+    doneList: []
+  }
+</script>
+
+
+<div class="kanban-board" +loading="example">
+  <div class="kanban-column" +drop="drop(event)" +dragover="allowDrop(event)" id="todo">
+    <h2>To Do</h2>
+    <div class="kanban-task" draggable="true" +dragstart="drag(event,example)" $each="example.todoList">
+      <span $id="item.id">${item.name}</span>
+      <span style="color: red; cursor: pointer; float: right"> X</span>
+    </div>
+
+  </div>
+  <div class="kanban-column" +drop="drop(event)" +dragover="allowDrop(event)" id="ip">
+    <h2>In Progress</h2>
+
+    <div class="kanban-task" draggable="true" +dragstart="drag(event)" $each="example.ipList">
+      <span $id="item.id">${item.name}</span>
+      <span style="color: red; cursor: pointer; float: right"> X</span>
+    </div>
+    <!-- Tasks will be added here dynamically -->
+  </div>
+  <div class="kanban-column" +drop="drop(event)" +dragover="allowDrop(event)" id="done">
+    <h2>Done</h2>
+    <div class="kanban-task" draggable="true" +dragstart="drag(event)" $each="example.doneList">
+      <span $id="item.id">${item.name}</span>
+      <span style="color: red; cursor: pointer; float: right"> X</span>
+    </div>
+    <!-- Tasks will be added here dynamically -->
+  </div>
+</div>
+
+<div class="task-creator">
+  <input $type="text" id="newTaskName" placeholder="Enter a new to-do task">
+  <button +click="addNewTask()">Add Task</button>
+</div>
+
+</body>
+</html>
