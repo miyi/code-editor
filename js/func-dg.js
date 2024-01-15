@@ -2,54 +2,51 @@ export function allowDrop(event) {
     event.preventDefault();
 }
 
-export function drag(event, data) {
-    console.log(event.target.id)
-    console.log(data)
-    event.dataTransfer.setData("application/json", data);
+export function drag(event, index, list) {
+    // console.log(event.target.id)
+    console.log("7", index, list)
+    console.log("8", list[index])
+    event.dataTransfer.setData("index", index)
+    event.dataTransfer.setData("list", list)
 }
 
-export function drop(event, id) {
+export function drop(event, list) {
     event.preventDefault();
-    const data = event.dataTransfer.getData("application/json");
-    console.log(data)
-    event.target.appendChild(document.getElementById(data));
+    const index = event.dataTransfer.getData("index");
+    const prevList = event.dataTransfer.getData("list");
+    console.log("17", index, prevList)
+    list.push(prevList[index]);
+    console.log("19", list)
+    delete prevList[index];
 }
 
 
-export function addNewTask() {
+export function addNewTask(example) {
     var taskName = document.getElementById('newTaskName').value;
     if (taskName.trim() === '') {
         alert('Please enter a task name.');
         return;
     }
-
-    var taskId = 'task' + (document.querySelectorAll('.kanban-task').length + 1);
-
-    var newTask = document.createElement('div');
-    newTask.classList.add('kanban-task');
-    newTask.setAttribute('draggable', true);
-    newTask.setAttribute('ondragstart', 'drag(event)');
-    newTask.id = taskId;
-
-    var taskContent = document.createTextNode(taskName);
-    newTask.appendChild(taskContent);
-
-    var deleteButton = document.createElement('span');
-    deleteButton.textContent = ' X';
-    deleteButton.style.color = 'red';
-    deleteButton.style.cursor = 'pointer';
-    deleteButton.style.float = 'right';
-    deleteButton.onclick = function() { deleteTask(taskId); };
-
-    newTask.appendChild(deleteButton);
-
-    document.querySelector('.kanban-column').appendChild(newTask);
+    console.log(example.todoList.length)
+    example.todoList.push(
+        {
+            "id": example.todoList.length + 1,
+            "name": taskName,
+            "Description": "S.L.",
+            "Assignee": "",
+            "Story Points": 1
+        }
+    )
     document.getElementById('newTaskName').value = ''; // Clear the input field after adding
+    console.log(example.todoList.length)
 }
 
-export function deleteTask(taskId) {
-    var task = document.getElementById(taskId);
-    task.parentNode.removeChild(task);
+export function deleteTask(index, list) {
+    if (list.length === 1) {
+        list.pop()
+    } else {
+        delete list[index];
+    }
 }
 
 
