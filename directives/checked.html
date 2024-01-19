@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+            type="module"
+            crossorigin="anonymous"
+            src="../js/dagger.js"
+            defer
+    ></script>
+    <link rel="stylesheet" href="/index.css" />
+    <script type="dagger/modules">
+        {
+          js: "/index.js",
+          hello: "/hello.html",
+          css: "/index.css"
+        }
+    </script>
+    <title>dagger demo page</title>
+</head>
+<body>
+
+<div +loading="{c: [true, true, false]}">
+    <div>
+        <input type="checkbox" $checked="c[0]">
+        checkbox1
+    </div>
+    <div>
+        <input type="checkbox" $checked="c[1]">
+        checkbox2
+    </div>
+    <div>
+        <input type="checkbox" $checked="c[2]">
+        checkbox3
+    </div>
+    <div $text="c"></div>
+</div>
+
+</body>
+</html>
