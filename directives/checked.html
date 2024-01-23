@@ -1,40 +1,33 @@
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script
-            type="module"
-            crossorigin="anonymous"
-            src="../js/dagger.js"
-            defer
-    ></script>
-    <link rel="stylesheet" href="/index.css" />
-    <script type="dagger/modules">
-        {
-          js: "/index.js",
-          hello: "/hello.html",
-          css: "/index.css"
+    <meta charset="UTF-8">
+    <title>Kanban</title>
+
+    <style>
+        [dg-cloak] {
+            display: none !important;
         }
-    </script>
-    <title>dagger demo page</title>
+    </style>
+
+    <script type="module" crossorigin="anonymous" src="../js/dagger.js" defer></script>
+    <script type="dagger/modules"></script>
 </head>
 <body>
-
-<div +loading="{c: [true, true, false]}">
-    <div>
-        <input type="checkbox" $checked="c[0]">
-        checkbox1
-    </div>
-    <div>
-        <input type="checkbox" $checked="c[1]">
-        checkbox2
-    </div>
-    <div>
-        <input type="checkbox" $checked="c[2]">
-        checkbox3
-    </div>
-    <div $text="c"></div>
+<div +loading="{status: [true, false, false]}">
+    <div>Using $checked with checkbox.</div>
+    <label>
+        <input type="checkbox" $checked="status[0]">
+        status[0]
+    </label>
+    <label>
+        <input type="checkbox" $checked="status[1]">
+        status[1]
+    </label>
+    <label>
+        <input type="checkbox" $checked="status[2]">
+        status[2]
+    </label>
+    <div>status: <span $text="status"></span></div>
 </div>
 
 </body>
