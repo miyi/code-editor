@@ -25,7 +25,9 @@ require(['vs/editor/editor.main'], function () {
             tag: [
                 [/\/?>/, 'tag', '@pop'],
                 [/\s+/, 'white'],
-                [/[$\+]?[\w\-:]+/, 'attribute.name'],
+                [/\$[\w\-:]+/, 'directives'],
+                [/[\w\-:]+/, 'attribute.name'],
+                [/\+[\w\-:]+/, 'lifecycle'],
                 [/=/, 'delimiter', '@value']
             ],
 
@@ -46,6 +48,8 @@ require(['vs/editor/editor.main'], function () {
             {token: 'comment', foreground: '008800', fontStyle: 'italic underline'},
             {token: 'tag', foreground: 'ff00ff', fontStyle: 'bold'},
             {token: 'attribute.name', foreground: 'FFA500'},
+            {token: 'directives', foreground: '373b39'},
+            {token: 'lifecycle', foreground: '00A5FF'},
             {token: 'attribute.value', foreground: '008800'},
         ],
         colors: {
