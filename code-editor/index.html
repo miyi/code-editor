@@ -2,39 +2,42 @@
 <html>
 <head>
     <title>Monaco Editor for HTML</title>
+    <link rel="stylesheet" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
-    <script src="ced.js"></script>
+    <script src="index.js"></script>
     <script type="module" crossorigin="anonymous" src="../js/dagger.js" defer></script>
+    <script type="dagger/modules">
+        {
+            readme: {
+                uri: "./README.md",
+                type: "string",
+                anonymous: true,
+            },
+            mdjs: "https://md-block.verou.me/md-block.js"
+        }
+    </script>
     <script type="dagger/modules"></script>
-    <style>
-        #outer {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        #container {
-            width: 800px;
-            float: left;
-            /*height: 600px;*/
-            border: 1px solid grey;
-        }
-        #htmlOutput {
-            width: 600px;
-            float: right;
-            height: 600px;
-            border: 1px solid grey;
-        }
-    </style>
+    <script>
+        fetch("../js/dagger.js")
+            .then((res) => res.text())
+            .then((text) => {
+                window.dgjs = text
+            }).catch((e) => console.error(e));
+    </script>
 </head>
 <body>
-<div id="outer">
-    <div id="container"></div>
-    <div> <iframe id="htmlOutput"></iframe></div>
+<div id="outer" +loading="{src: 'readme.md'}">
+    <div class="code-editor-column" >
+        <md-block $src="src"></md-block>
+    </div>
+    <div class="code-editor-column" id="container">
+
+    </div>
+
+    <div class="code-editor-column">
+        <iframe id="htmlOutput"></iframe>
+    </div>
 </div>
-
-
-<script>
-</script>
 
 </body>
 </html>

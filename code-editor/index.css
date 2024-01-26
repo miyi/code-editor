@@ -1,0 +1,17 @@
+#outer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#container {
+    width: 800px;
+    float: left;
+    /*height: 600px;*/
+    border: 1px solid grey;
+}
+#htmlOutput {
+    width: 600px;
+    float: right;
+    height: 600px;
+    border: 1px solid grey;
+}
