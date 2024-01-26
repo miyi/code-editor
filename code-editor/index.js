@@ -48,7 +48,7 @@ require(['vs/editor/editor.main'], function () {
             {token: 'comment', foreground: '008800', fontStyle: 'italic underline'},
             {token: 'tag', foreground: 'ff00ff', fontStyle: 'bold'},
             {token: 'attribute.name', foreground: 'FFA500'},
-            {token: 'directives', foreground: '373b39'},
+            {token: 'directives', foreground: '373bFF'},
             {token: 'lifecycle', foreground: '00A5FF'},
             {token: 'attribute.value', foreground: '008800'},
         ],
