@@ -54,7 +54,7 @@ require(["vs/editor/editor.main"], function () {
   // Define custom theme rules
   monaco.editor.defineTheme("myCustomTheme", {
     base: "vs",
-    inherit: false,
+    inherit: true,
     rules: [
       { token: "keyword", foreground: "808080" },
       { token: "comment", foreground: "008800", fontStyle: "italic underline" },
