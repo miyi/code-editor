@@ -9,7 +9,7 @@ require(["vs/editor/editor.main"], function () {
   monaco.languages.register({
     id: "daggerJs",
     extensions: [".html"],
-    aliases: ["dagger", "daggerjs", "dagger-js"],
+    aliases: ["Custom HTML", "custom-html"],
     mimetypes: ["text/html"],
   });
 
@@ -18,7 +18,7 @@ require(["vs/editor/editor.main"], function () {
       root: [
         [/<!DOCTYPE/, "keyword", "@doctype"],
         [/<!--/, "comment", "@comment"],
-        [/<[\/!]?[a-zA-Z_\-:0-9]+/, "tag", "@tag"],
+        [/\<\w+/, { token: "html-tag", next: "@tag" }],
         [/&\w+;/, "string.escape"],
       ],
 
@@ -34,25 +34,30 @@ require(["vs/editor/editor.main"], function () {
       ],
 
       tag: [
-        [/\/?>/, "tag", "@pop"],
-        [/\$[\w\-:]+/, "dollar"],
-        [/[\w\-:]+/, "attribute.name"],
-        [/\+[\w\-:]+/, "plus"],
+        [/\w+\=/, "html-attribute"],
+        [/\>/, "@pop"],
+        [/\$[\w#\-:]+/, "dollar"],
+        [/\+[\w#\-:]+/, "plus"],
         [/\s+/, "white"],
-
         [/=/, "delimiter", "@value"],
       ],
 
       value: [
-        [/"[^"]*"/, "attribute.value", "@pop"],
+        [/"[^"]*"/, "javascript-expression", "@pop"],
         [/'[^']*'/, "attribute.value", "@pop"],
         [/[\w\-]+/, "attribute.value", "@pop"],
+      ],
+      assignment: [[/=/, "delimiter", "@jsExpression"]],
+      jsExpression: [
+        [/"[^"]*"/, "javascript-expression", "@checkStatement"],
+        [/'[^']*'/, "javascript-expression", "@checkStatement"],
+        [/`[^`]*`/, "javascript-expression", "@checkStatement"],
       ],
       checkStatement: [
         // Add rules to detect and mark JavaScript statements as an error
         [/;/, { token: "javascript-error", next: "@pop" }],
+        [/.*/, { token: "javascript-expression", next: "@pop" }],
       ],
-
     },
   });
   // Define custom theme rules
@@ -84,6 +89,9 @@ require(["vs/editor/editor.main"], function () {
     ].join("\n"),
     language: "daggerJs",
     theme: "myCustomTheme",
+    minimap: {
+      enabled: false,
+    },
   });
   updateIframe();
   window.editor.getModel().onDidChangeContent((event) => {

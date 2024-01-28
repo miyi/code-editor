@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monaco Editor with Custom Language</title>
+    <!-- Include Monaco Editor from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
+  </head>
+  <body>
+    <!-- Container for the editor -->
+    <div id="editor" style="height: 400px"></div>
+
+    <script>
+      // Load Monaco Editor and set up custom language
+      require.config({
+        paths: {
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs",
+        },
+      });
+
+      require(["vs/editor/editor.main"], function () {
+        // Register custom language
+        monaco.languages.register({ id: "custom-html" });
+
+        // Set up Monarch tokenizer for custom language
+        monaco.languages.setMonarchTokensProvider("custom-html", {
+          tokenizer: {
+            root: [
+              // HTML tags
+              [/<(\w+)/, "html-tag"],
+              [/<\/(\w+)/, "html-tag"],
+            ],
+          },
+        });
+
+        // Create the editor with the custom language
+        var editor = monaco.editor.create(document.getElementById("editor"), {
+          value: "",
+          language: "html", // Set the language ID
+          theme: "vs-dark", // Choose your preferred theme
+        });
+      });
+    </script>
+  </body>
+</html>

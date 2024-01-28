@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script type="module" src="dagger.js"></script>
+    <title>dagger demo page</title>
+  </head>
+  <body>
+    <div +loading="{c: [true, true, false]}">
+      <div>
+        <input type="checkbox" $checked="c[0]" />
+        checkbox1
+      </div>
+      <div>
+        <input type="checkbox" $checked="c[1]" />
+        checkbox2
+      </div>
+      <div>
+        <input type="checkbox" $checked="c[2]" />
+        checkbox3
+      </div>
+      <div $text="c"></div>
+    </div>
+  </body>
+</html>
