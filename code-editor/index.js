@@ -72,6 +72,7 @@ require(["vs/editor/editor.main"], function () {
     language: "daggerJs",
     theme: "myCustomTheme",
   });
+  updateIframe();
   window.editor.getModel().onDidChangeContent((event) => {
     updateIframe();
   });
