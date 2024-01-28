@@ -12,6 +12,7 @@ require(["vs/editor/editor.main"], function () {
     aliases: ["dagger", "daggerjs", "dagger-js"],
     mimetypes: ["text/html"],
   });
+
   monaco.languages.setMonarchTokensProvider("daggerJs", {
     tokenizer: {
       root: [
@@ -37,6 +38,8 @@ require(["vs/editor/editor.main"], function () {
         [/\$[\w\-:]+/, "dollar"],
         [/[\w\-:]+/, "attribute.name"],
         [/\+[\w\-:]+/, "plus"],
+        [/\s+/, "white"],
+
         [/=/, "delimiter", "@value"],
       ],
 
@@ -49,6 +52,7 @@ require(["vs/editor/editor.main"], function () {
         // Add rules to detect and mark JavaScript statements as an error
         [/;/, { token: "javascript-error", next: "@pop" }],
       ],
+
     },
   });
   // Define custom theme rules
@@ -72,15 +76,16 @@ require(["vs/editor/editor.main"], function () {
   window.editor = monaco.editor.create(document.getElementById("container"), {
     value: [
       "<body>",
-      `<div +loading="{a: 'string', b: 1}" $watch="b++">`,
-      `\${a}`,
-      `\${b}`,
-      `</div>`,
+      `     <div class="card" +loading="{a: '123', b: 1}" $watch="b++">`,
+      "             ${a}",
+      "             ${b}",
+      `     </div>`,
       "</body>",
     ].join("\n"),
     language: "daggerJs",
     theme: "myCustomTheme",
   });
+  updateIframe();
   window.editor.getModel().onDidChangeContent((event) => {
     updateIframe();
   });
