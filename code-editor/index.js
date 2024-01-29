@@ -94,7 +94,7 @@ require(["vs/editor/editor.main"], function () {
     },
   });
   updateIframe();
-  window.editor.getModel().onDidChangeContent((event) => {
+  window.editor.getModel().onDidChangeContent(() => {
     updateIframe();
   });
 });
@@ -111,12 +111,10 @@ const getGeneratedPageURL = ({ html }) => {
     return URL.createObjectURL(blob);
   };
 
-  const jsURL = getBlobURL(window.dgjs, "text/javascript");
-
   const source = `
     <html>
       <head>
-        <script type="module" crossorigin="anonymous" src="${jsURL}" defer></script><script type="dagger/modules"></script>
+        <script type="module" crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/@miyi/dagger.js" defer></script><script type="dagger/modules"></script>
       </head>
       <body>
         ${html || ""}
