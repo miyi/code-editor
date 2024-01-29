@@ -19,7 +19,7 @@
       }
     </script>
   </head>
-  <body +loading="{editor: null}" +loaded="editor=monaco">
-    <div id="container" style="height: 500px"></div>
+  <body +loading="{monaco: null}" +loaded="monaco=editor">
+    <div id="container" style="height: 500px" +loaded="initMonaco(monaco, $node)"></div>
   </body>
 </html>
