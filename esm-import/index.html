@@ -36,8 +36,8 @@
       <div
         id="container"
         +loading="{editor: null}"
-        +loaded="editor=initMonaco(monaco, $node),editorValue=editor.getValue(), console.log(2)"
-        $watch="editor.getModel().onDidChangeContent(()=> {console.log('changed')}), console.log(1)"
+        +loaded="editor=initMonaco(monaco, $node),editorValue=editor.getValue(), editor.getModel().onDidChangeContent(()=> {$scope.editorValue=editor.getValue()})"
+        $watch=""
       ></div>
       <div class="code-editor-column">
         <iframe
